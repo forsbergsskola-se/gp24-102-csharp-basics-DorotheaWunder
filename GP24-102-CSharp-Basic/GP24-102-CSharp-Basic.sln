@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GP24-102-CSharp-Basic", "GP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2CodeExecution", "P2CodeExecution\P2CodeExecution.csproj", "{7DB45E28-D2F0-493E-87F3-CF68B1265BBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P3PrintingOutput", "P3PrintingOutput\P3PrintingOutput.csproj", "{44EE2E09-5824-4953-B9AC-F3D597D77061}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{7DB45E28-D2F0-493E-87F3-CF68B1265BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DB45E28-D2F0-493E-87F3-CF68B1265BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DB45E28-D2F0-493E-87F3-CF68B1265BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44EE2E09-5824-4953-B9AC-F3D597D77061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44EE2E09-5824-4953-B9AC-F3D597D77061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44EE2E09-5824-4953-B9AC-F3D597D77061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44EE2E09-5824-4953-B9AC-F3D597D77061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
