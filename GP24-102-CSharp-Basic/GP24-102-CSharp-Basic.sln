@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P3PrintingOutput", "P3Print
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P4Comments", "P4Comments\P4Comments.csproj", "{3C09524A-6242-478D-A590-1274BA36A982}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P5Variables", "P5Variables\P5Variables.csproj", "{1F0F46E1-DF48-44EB-8A67-2C5EF384C4FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3C09524A-6242-478D-A590-1274BA36A982}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C09524A-6242-478D-A590-1274BA36A982}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C09524A-6242-478D-A590-1274BA36A982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F0F46E1-DF48-44EB-8A67-2C5EF384C4FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F0F46E1-DF48-44EB-8A67-2C5EF384C4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F0F46E1-DF48-44EB-8A67-2C5EF384C4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F0F46E1-DF48-44EB-8A67-2C5EF384C4FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
