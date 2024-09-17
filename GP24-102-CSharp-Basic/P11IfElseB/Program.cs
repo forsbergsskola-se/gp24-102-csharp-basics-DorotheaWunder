@@ -1,3 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿int pointsGrade;
+string letterGrade;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("How many points did you get in the test?");
+
+
+
+
+
+Console.WriteLine($"You got {pointsGrade} points. That means your grade is {letterGrade}");
