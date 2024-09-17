@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsG", "P09Operato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsH", "P09OperatorsH\P09OperatorsH.csproj", "{992ACDD2-10E5-495F-A0F1-6653E311B034}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsI", "P09OperatorsI\P09OperatorsI.csproj", "{769F45C5-3F26-4CA5-A63E-3173BB085293}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,5 +152,9 @@ Global
 		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Release|Any CPU.Build.0 = Release|Any CPU
+		{769F45C5-3F26-4CA5-A63E-3173BB085293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{769F45C5-3F26-4CA5-A63E-3173BB085293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{769F45C5-3F26-4CA5-A63E-3173BB085293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{769F45C5-3F26-4CA5-A63E-3173BB085293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
