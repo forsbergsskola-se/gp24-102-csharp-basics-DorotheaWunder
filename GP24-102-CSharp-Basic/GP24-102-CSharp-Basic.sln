@@ -44,6 +44,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsE", "P09Operato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsF", "P09OperatorsF\P09OperatorsF.csproj", "{A510A86F-3D47-4A07-A32B-A5F3C6D878E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsG", "P09OperatorsG\P09OperatorsG.csproj", "{47E06463-19A4-45DC-88AD-205EC0273EC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P09OperatorsH", "P09OperatorsH\P09OperatorsH.csproj", "{992ACDD2-10E5-495F-A0F1-6653E311B034}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,5 +142,13 @@ Global
 		{A510A86F-3D47-4A07-A32B-A5F3C6D878E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A510A86F-3D47-4A07-A32B-A5F3C6D878E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A510A86F-3D47-4A07-A32B-A5F3C6D878E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47E06463-19A4-45DC-88AD-205EC0273EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47E06463-19A4-45DC-88AD-205EC0273EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47E06463-19A4-45DC-88AD-205EC0273EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47E06463-19A4-45DC-88AD-205EC0273EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{992ACDD2-10E5-495F-A0F1-6653E311B034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
