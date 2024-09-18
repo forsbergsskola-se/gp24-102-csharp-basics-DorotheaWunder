@@ -1,5 +1,5 @@
 ﻿Random random = new Random();
-string message = "Wer das liest is doof.";
+string message;
 double chance = 0.1;
 double randomRoll;
 
