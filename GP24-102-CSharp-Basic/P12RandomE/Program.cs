@@ -1,8 +1,17 @@
 ﻿Random random = new Random();
-string messageSuccess = "Wer das liest is doof.";
-string messageFailure = "Try again.";
-double chance = 0.0;
-double randomRoll = 0.0;
+string message = "Wer das liest is doof.";
+double chance = 0.1;
+double randomRoll;
 
+randomRoll = Random.Shared.NextDouble();
 
-Console.WriteLine("Hello, World!");
+if (randomRoll < chance)
+{
+ message = "Wer das liest is doof.";
+}
+else
+{
+ message = "Try again.";
+}
+
+Console.WriteLine(message);

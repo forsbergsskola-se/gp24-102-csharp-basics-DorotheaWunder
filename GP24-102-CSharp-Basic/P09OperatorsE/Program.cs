@@ -10,4 +10,4 @@ numberB = Convert.ToInt32(Console.ReadLine());
 
 modulo = numberA % numberB;
 
-Console.WriteLine($"The remainder of {numberA} and {numberB} is: {modulo}");
+Console.WriteLine($"The remainder of {numberA} divided by {numberB} is: {modulo}");
