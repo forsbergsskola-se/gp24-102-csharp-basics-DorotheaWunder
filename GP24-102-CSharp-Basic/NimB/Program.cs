@@ -43,7 +43,7 @@ void TurnPlayer()
 
 void CheckCoordinates()
 {
-    if(string.IsNullOrWhiteSpace(grid[inputColumn, inputRow]))
+    if(string.IsNullOrWhiteSpace(grid[inputColumn -1, inputRow -1]))
     {
         AssignChar();
         TurnPlayer();
@@ -66,7 +66,7 @@ void AssignChar()
         grid.SetValue("o",inputColumn -1,inputRow -1);
     }
     DisplayGrid();
-    //switch player bool?
+    isPlayerTurn = !isPlayerTurn;
 }
 
 ConsoleColor AssignColorSquares(int row, int column)
