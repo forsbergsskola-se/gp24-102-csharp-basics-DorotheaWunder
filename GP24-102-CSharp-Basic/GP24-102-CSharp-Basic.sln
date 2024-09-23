@@ -72,6 +72,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P13GoToE", "P13GoToE\P13GoT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NimA", "NimA\NimA.csproj", "{A71AC514-190C-44DC-8578-7C901CC95F43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NimB", "NimB\NimB.csproj", "{227CBB10-3B86-448C-B73B-D30C32AAAE4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -222,5 +224,9 @@ Global
 		{A71AC514-190C-44DC-8578-7C901CC95F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A71AC514-190C-44DC-8578-7C901CC95F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A71AC514-190C-44DC-8578-7C901CC95F43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{227CBB10-3B86-448C-B73B-D30C32AAAE4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227CBB10-3B86-448C-B73B-D30C32AAAE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227CBB10-3B86-448C-B73B-D30C32AAAE4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227CBB10-3B86-448C-B73B-D30C32AAAE4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
