@@ -24,7 +24,3 @@ for (int i = 0; i < inputNumber; i++ )
     }
     Console.WriteLine();
 }
-
-
-
-//Console.WriteLine("\n");
