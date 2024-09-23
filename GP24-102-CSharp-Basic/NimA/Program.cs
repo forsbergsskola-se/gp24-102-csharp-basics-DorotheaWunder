@@ -9,19 +9,12 @@ Console.WriteLine("Welcome to NIM");
 Console.WriteLine("You can draw between 1 and 3 matches.");
 DisplayMatches();
 
-for (int i = 0; i < totalNumber; i++) 
+while (totalNumber > 0)
 {
-    if (totalNumber != 0)
-        {
-            PlayerTurn();
-            AIturn();
-        }
-    else
-        {
-            Console.WriteLine("The game is over.");
-        }
+    PlayerTurn();
+    AIturn();
 }
-
+GameResult();
 
 void DisplayMatches()
 {
@@ -56,11 +49,25 @@ void AIturn()
     DisplayMatches();
 }
     
-
+void GameResult()
+{
+    Console.WriteLine();
+    Console.WriteLine("The game is over.");
+    if (totalNumber % 2 == 0)
+    {
+        Console.WriteLine("You won.");
+    }
+    else
+    {
+        Console.WriteLine("The AI won.");
+    }
+}
     
     
 
 
 
-
+//for loop in turns as well?
+//while loop instead of for?
+//check modulo of total matches to determine who did the last turn?
 ///have a 2 player mode??
