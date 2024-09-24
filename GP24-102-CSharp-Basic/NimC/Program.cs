@@ -8,6 +8,7 @@ string[] shipTypes =
     "4 SQUARES",
     "5 SQUARES",
 };
+//alternatively int[,] matrix = new int[10, 10] ---- but does that also work with strings?
 string[,] gridGreen = 
 {
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
@@ -38,14 +39,47 @@ string[,] gridPink =
     { "0", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "0"},
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
 };
-
-DisplayGrid();
-
-
+int inputLetters;
+int inputNumbers;
 
 
+Console.WriteLine();
+TurnPlayer();
 
 
+
+
+void TurnPlayer()
+{
+    Console.WriteLine($"{(isPlayerGreen ? "GREEN" : "PINK") }, it's your turn to shoot!");
+    Console.WriteLine("Write the LETTER coordinate");
+    inputLetters = Convert.ToInt32(Console.ReadLine());
+    
+    Console.WriteLine("Now write down the NUMBER coordinate");
+    inputNumbers = Convert.ToInt32(Console.ReadLine());
+    Console.Clear();
+    
+    //change grid depending on player
+    if (isPlayerGreen)
+    {
+        gridPink[inputLetters, inputNumbers] = "X";
+    }
+    else
+    {
+        gridGreen[inputLetters, inputNumbers] = "X";
+    }
+    Console.WriteLine();
+    DisplayGrid();
+    
+    isPlayerGreen = !isPlayerGreen;
+    TurnPlayer();
+}
+
+void CheckHit()
+{
+    //is not empty? then its hit
+    //is hit? change color of sqaure
+}
 
 ConsoleColor AssignColorSquares(int row, int column)
 {
@@ -91,6 +125,6 @@ void DisplayGrid()
             Console.WriteLine();
         }
     }
-
-    
 }
+
+
