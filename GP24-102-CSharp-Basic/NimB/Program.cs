@@ -1,14 +1,20 @@
 ﻿using System.Text;
 Console.OutputEncoding = Encoding.UTF8;
-
 bool isPlayerTurn = true;
-bool hasWon = false;
+bool playerOneWon = false;
+bool gameEnded = false;
 string winMessage = @"
-     .-.
-    (o o) boo!
-    | O \
-     \   \
-      `~~~'";
+                                   .''.       
+       .''.      .        *''*    :_\/_:     . 
+      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
+  .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
+ :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
+ : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
+  '..'  ':::'     * /\ *     .'/.\'.   '
+      *            *..*         :
+      *
+        *
+";
 
 int inputColumn = 0;
 int inputRow = 0;
@@ -21,7 +27,6 @@ string[,] grid =
 
 
 StartMenu();
-
 
 void StartMenu()
 {
@@ -42,7 +47,7 @@ void TurnPlayer()
     inputColumn = Convert.ToInt32(Console.ReadLine());
     if (inputColumn >0 && inputColumn <=3)
     {
-        //goto SelectRow;
+
     }
     else
     {
@@ -99,43 +104,50 @@ void CheckGameEnd()
     {
         if (grid[0, column] == "x" && grid[1, column] == "x" && grid[2, column] == "x")
         {
-            hasWon = true;
+            playerOneWon = true;
+            gameEnded = true;
+        }
+        else if (grid[0, column] == "o" && grid[1, column] == "o" && grid[2, column] == "o")
+        {
+            gameEnded = true;
         }
     }
     for (int row = 0; row < 3; row++)
     {
         if (grid[row, 0] == "x" && grid[row, 1] == "x" && grid[row, 2] == "x")
         {
-            hasWon = true;
+            playerOneWon = true;
+            gameEnded = true;
+        }
+        if (grid[row, 0] == "o" && grid[row, 1] == "o" && grid[row, 2] == "o")
+        {
+            gameEnded = true;
         }
     }
 
     if ((grid[0, 0] == "x" && grid[1, 1] == "x" && grid[2, 2] == "x") ||
         (grid[0, 2] == "x" && grid[1, 1] == "x" && grid[2, 0] == "x"))
     {
-        hasWon = true;
+        playerOneWon = true;
+        gameEnded = true;
+    }
+    else if ((grid[0, 0] == "o" && grid[1, 1] == "o" && grid[2, 2] == "o") ||
+        (grid[0, 2] == "o" && grid[1, 1] == "o" && grid[2, 0] == "o"))
+    {
+        gameEnded = true;
     }
     GameEndResult();
 }
 
 void GameEndResult()
 {
-    if (hasWon)
+    if (gameEnded)
     {
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("----- THE GAME HAS ENDED -----");
-
-        if (hasWon)
-        {
-            Console.WriteLine("----- PLAYER 1 WON -----");
-            
-        }
-        else
-        {
-            Console.WriteLine("----- PLAYER 2 WON -----");
-        }
         Console.WriteLine(winMessage);
+        Console.WriteLine("----- THE GAME HAS ENDED -----");
+        Console.WriteLine($"The winnner is: {(playerOneWon? "PLAYER 1" : "PLAYER 2")}");
     }
     else
     {
