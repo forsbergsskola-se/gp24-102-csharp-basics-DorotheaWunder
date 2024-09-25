@@ -45,6 +45,7 @@ char inputLetter = ' ';
 int convertedLetter = 0;
 int inputNumber = 0;
 
+Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 Console.WriteLine("--------WELCOME TO BATTLESHIPS--------");
 Console.WriteLine();
 TurnPlayer();
@@ -62,7 +63,7 @@ void TurnPlayer()
     Console.WriteLine();
     
     Console.WriteLine("NUMBER coordinate");
-    inputNumber = Convert.ToInt32(Console.ReadLine());
+    inputNumber = Convert.ToInt32(Console.ReadKey());
     
     if (isPlayerGreen)
     {
