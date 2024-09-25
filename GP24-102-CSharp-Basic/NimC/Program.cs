@@ -11,6 +11,7 @@ string[] shipTypes =
 
 string letterRange = "abcdefhij";
 
+//have extra grid string just for color coding??
 string[,] gridGreen = 
 {
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
@@ -64,6 +65,8 @@ void TurnPlayer()
     Console.WriteLine("press key to check coordinates");
     Console.ReadKey();
     CheckForHit();
+    isPlayerGreenTurn = !isPlayerGreenTurn;
+    TurnPlayer();
 }
 
 void EnterCoordinatesInput()
@@ -88,9 +91,6 @@ void EnterCoordinatesInput()
     {
         AssignChar();
     }
-    
-    // isPlayerGreen = !isPlayerGreen;
-    // TurnPlayer();
 }
 
 void AssignChar()
@@ -130,11 +130,28 @@ void EnterCoordinatesGuess()
     Console.WriteLine("NUMBER coordinate");
     guessedNumber = Convert.ToInt32(Console.ReadLine());
 }
+
 void CheckForHit()
 {
+    //make players marker invisible
     if (isPlayerGreenTurn)
     {
         if (gridGreen[inputNumber, convertedLetter] == gridGreen[guessedNumber, guessedLetterConv])
+        {
+            Console.WriteLine("YOU HIT!!");
+            gridGreen[guessedNumber, guessedLetterConv] = "#";
+            DisplayGrid();
+        }
+        else
+        {
+            Console.WriteLine("You missed!");
+            gridGreen[guessedNumber, guessedLetterConv] = "-";
+            DisplayGrid();
+        }
+    }
+    else
+    {
+        if (gridPink[inputNumber, convertedLetter] == gridPink[guessedNumber, guessedLetterConv])
         {
             Console.WriteLine("YOU HIT!!");
         }
@@ -143,41 +160,7 @@ void CheckForHit()
             Console.WriteLine("You missed!");
         }
     }
-    else
-    {
-        //check pink grid
-    }
 }
-void CheckHit()
-{
-    //compare coordinates player green with coordinates player pink
-    //compare input values to GUESSED values
-    
-    if (isPlayerGreenTurn)
-    {
-        for (int i = 0; i < gridPink.GetLength(0); i++)
-        {
-            for (int j = 0; j < gridPink.GetLength(1); j++)
-            {
-                if (!string.IsNullOrWhiteSpace(gridPink[inputNumber,convertedLetter]))
-                    {
-                        Console.WriteLine($"Letternr: {convertedLetter}, Numbernumber {inputNumber}");
-                        //change color pf sqaure
-                    }
-                    else
-                    {
-                        Console.WriteLine("You  missed");
-                    }
-            }
-        }
-    }
-    else
-    {
-        
-    }
-}
-
-
 
 int ConvertToNumber(char inputLetter)
 {
@@ -216,6 +199,8 @@ void DisplayGrid()
                 Console.BackgroundColor = AssignColorSquares(i, j);
                 Console.ForegroundColor = ConsoleColor.Black;
 
+                //check values on green grid; if its not blank ->make it blank
+                //if grid
                 Console.Write(" " + gridGreen[i,j] + " ");
                 Console.ResetColor();
             }
