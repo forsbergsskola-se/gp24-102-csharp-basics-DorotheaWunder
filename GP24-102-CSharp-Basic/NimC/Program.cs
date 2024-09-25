@@ -41,43 +41,43 @@ string[,] gridPink =
     { "0", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "0"},
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
 };
-char inputLetter;
-int inputNumber;
+char inputLetter = ' ';
+int convertedLetter = 0;
+int inputNumber = 0;
 
-
-
-DisplayGrid();
+Console.WriteLine("--------WELCOME TO BATTLESHIPS--------");
 Console.WriteLine();
 TurnPlayer();
 
 
-
-
 void TurnPlayer()
 {
+    Console.Clear();
+    DisplayGrid();
     Console.WriteLine($"{(isPlayerGreen ? "GREEN" : "PINK") }, it's your turn to shoot!");
-    Console.WriteLine("Write the LETTER coordinate");
-    //method for turning letters into int
-    var inputLetter = Console.ReadKey();
-    //void LettersToNumbers();
+    Console.WriteLine($"Which coordinate of {(isPlayerGreen ? "PINK'" : "GREEN'") }s field do you wan to attack?");
+    Console.WriteLine("LETTER coordinate");
+    inputLetter = Console.ReadKey().KeyChar;
+    LettersToNumbers();
+    Console.WriteLine();
     
-    Console.WriteLine("Now write down the NUMBER coordinate");
+    Console.WriteLine("NUMBER coordinate");
     inputNumber = Convert.ToInt32(Console.ReadLine());
-    //Console.Clear();
     
-    //change grid depending on player
     if (isPlayerGreen)
     {
-        gridPink[inputLetter, inputNumber +1 ] = "X";
+        gridPink[convertedLetter, inputNumber] = "X";
     }
     else
     {
-        gridGreen[inputLetter, inputNumber +1] = "X";
+        gridGreen[convertedLetter, inputNumber] = "X";
     }
-    //Console.WriteLine();
+    Console.WriteLine("-------------------------------------");
     DisplayGrid();
-    
-    //isPlayerGreen = !isPlayerGreen;
+    Console.WriteLine("-------------------------------------");
+    Console.WriteLine("Press any key to continue");
+    Console.ReadKey();
+    isPlayerGreen = !isPlayerGreen;
     TurnPlayer();
 }
 
@@ -88,42 +88,38 @@ void CheckHit()
 }
 void LettersToNumbers()
 {
-    if(inputLetter.i)
-    // if (letterRange.IndexOf(inputLetter.KeyChar) != -1) {
-    //     Console.WriteLine(letterRange.IndexOf(inputLetter.KeyChar));
-    // }
+    if (char.IsUpper(inputLetter))
+    {
+        inputLetter = char.ToLower(inputLetter);
+    }
+    
+    if (letterRange.IndexOf(inputLetter) != -1)
+    {
+         convertedLetter = letterRange.IndexOf(inputLetter) + 1; 
+    }
+    else
+    {
+        Console.WriteLine("The letter you chose is out of range.");
+        TurnPlayer();
+    }
+
 }
 
 ConsoleColor AssignColorSquares(int row, int column)
 {
     if (isPlayerGreen)
     {
-            return (row + column) % 2 == 0 ? ConsoleColor.Green : ConsoleColor.DarkGreen;
+            return (row + column) % 2 == 0 ? ConsoleColor.Magenta : ConsoleColor.DarkMagenta;
     }
     else
     {
-        return (row + column) % 2 == 0 ? ConsoleColor.Magenta : ConsoleColor.DarkMagenta;
+        return (row + column) % 2 == 0 ? ConsoleColor.Green : ConsoleColor.DarkGreen;
     }
 }
 
 void DisplayGrid()
 {
     if (isPlayerGreen)
-    {
-        for(int i = 0; i < gridGreen.GetLength(0); i++)
-        {
-            for (int j = 0; j < gridGreen.GetLength(1); j++)
-            {
-                Console.BackgroundColor = AssignColorSquares(i, j);
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.Write(" " + gridGreen[i,j] + " ");
-                Console.ResetColor();
-            }
-            Console.WriteLine();
-        }
-    }
-    else
     {
         for(int i = 0; i < gridPink.GetLength(0); i++)
         {
@@ -133,6 +129,21 @@ void DisplayGrid()
                 Console.ForegroundColor = ConsoleColor.Black;
 
                 Console.Write(" " + gridPink[i,j] + " ");
+                Console.ResetColor();
+            }
+            Console.WriteLine();
+        }
+    }
+    else
+    {
+        for(int i = 0; i < gridGreen.GetLength(0); i++)
+        {
+            for (int j = 0; j < gridGreen.GetLength(1); j++)
+            {
+                Console.BackgroundColor = AssignColorSquares(i, j);
+                Console.ForegroundColor = ConsoleColor.Black;
+
+                Console.Write(" " + gridGreen[i,j] + " ");
                 Console.ResetColor();
             }
             Console.WriteLine();
