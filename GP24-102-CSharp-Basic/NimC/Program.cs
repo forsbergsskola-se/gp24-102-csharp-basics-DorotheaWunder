@@ -8,7 +8,9 @@ string[] shipTypes =
     "4 SQUARES",
     "5 SQUARES",
 };
-//alternatively int[,] matrix = new int[10, 10] ---- but does that also work with strings?
+
+string letterRange = "abcdefhij";
+
 string[,] gridGreen = 
 {
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
@@ -39,10 +41,12 @@ string[,] gridPink =
     { "0", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "0"},
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
 };
-int inputLetters;
-int inputNumbers;
+char inputLetter;
+int inputNumber;
 
 
+
+DisplayGrid();
 Console.WriteLine();
 TurnPlayer();
 
@@ -53,25 +57,27 @@ void TurnPlayer()
 {
     Console.WriteLine($"{(isPlayerGreen ? "GREEN" : "PINK") }, it's your turn to shoot!");
     Console.WriteLine("Write the LETTER coordinate");
-    inputLetters = Convert.ToInt32(Console.ReadLine());
+    //method for turning letters into int
+    var inputLetter = Console.ReadKey();
+    //void LettersToNumbers();
     
     Console.WriteLine("Now write down the NUMBER coordinate");
-    inputNumbers = Convert.ToInt32(Console.ReadLine());
-    Console.Clear();
+    inputNumber = Convert.ToInt32(Console.ReadLine());
+    //Console.Clear();
     
     //change grid depending on player
     if (isPlayerGreen)
     {
-        gridPink[inputLetters, inputNumbers] = "X";
+        gridPink[inputLetter, inputNumber +1 ] = "X";
     }
     else
     {
-        gridGreen[inputLetters, inputNumbers] = "X";
+        gridGreen[inputLetter, inputNumber +1] = "X";
     }
-    Console.WriteLine();
+    //Console.WriteLine();
     DisplayGrid();
     
-    isPlayerGreen = !isPlayerGreen;
+    //isPlayerGreen = !isPlayerGreen;
     TurnPlayer();
 }
 
@@ -79,6 +85,13 @@ void CheckHit()
 {
     //is not empty? then its hit
     //is hit? change color of sqaure
+}
+void LettersToNumbers()
+{
+    if(inputLetter.i)
+    // if (letterRange.IndexOf(inputLetter.KeyChar) != -1) {
+    //     Console.WriteLine(letterRange.IndexOf(inputLetter.KeyChar));
+    // }
 }
 
 ConsoleColor AssignColorSquares(int row, int column)

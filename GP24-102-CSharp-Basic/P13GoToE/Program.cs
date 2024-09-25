@@ -11,15 +11,15 @@ for (int i = 0; i < inputNumber; i++ )
 {
     for (int j = 0; j < inputNumber; j++ )
     {
-        if (j % 2 != 0)
+        if (i % 2 != 0)
         {
             Console.Write("#");
             Console.Write("-");
         }
         else
         {
-            Console.Write("#");
             Console.Write("-");
+            Console.Write("#");
         }
     }
     Console.WriteLine();
