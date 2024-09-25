@@ -55,6 +55,14 @@ void TurnPlayer()
 {
     Console.Clear();
     DisplayGrid();
+    EnterCoordinates();
+    CheckHit();
+    // isPlayerGreen = !isPlayerGreen;
+    // TurnPlayer();
+}
+
+void EnterCoordinates()
+{
     Console.WriteLine($"{(isPlayerGreen ? "GREEN" : "PINK") }, it's your turn to shoot!");
     Console.WriteLine($"Which coordinate of {(isPlayerGreen ? "PINK'" : "GREEN'") }s field do you wan to attack?");
     Console.WriteLine("LETTER coordinate");
@@ -63,7 +71,7 @@ void TurnPlayer()
     Console.WriteLine();
     
     Console.WriteLine("NUMBER coordinate");
-    inputNumber = Convert.ToInt32(Console.ReadKey());
+    inputNumber = Convert.ToInt32(Console.ReadLine());
     
     if (isPlayerGreen)
     {
@@ -75,18 +83,23 @@ void TurnPlayer()
     }
     Console.WriteLine("-------------------------------------");
     DisplayGrid();
-    Console.WriteLine("-------------------------------------");
+    Console.WriteLine("----------- updated field --------------");
     Console.WriteLine("Press any key to continue");
     Console.ReadKey();
-    isPlayerGreen = !isPlayerGreen;
-    TurnPlayer();
 }
-
 void CheckHit()
 {
-    //is not empty? then its hit
+    if (!string.IsNullOrWhiteSpace(gridPink[convertedLetter,inputNumber]))
+    {
+        Console.WriteLine("YOU HIT");
+    }
+    else
+    {
+        Console.WriteLine("You  missed");
+    }
     //is hit? change color of sqaure
 }
+
 void LettersToNumbers()
 {
     if (char.IsUpper(inputLetter))
