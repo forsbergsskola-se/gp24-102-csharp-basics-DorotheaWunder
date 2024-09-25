@@ -1,5 +1,5 @@
-﻿bool isPlayerGreen = true;
-
+﻿bool isPlayerGreenTurn = true;
+//bool isHit;
 string[] shipTypes =
 {
     "2 SQUARES",
@@ -41,66 +41,145 @@ string[,] gridPink =
     { "0", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "0"},
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
 };
+//to mark the coordinate
 char inputLetter = ' ';
 int convertedLetter = 0;
 int inputNumber = 0;
 
-Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//to COMPARE the coordinate
+char guessedLetter = ' ';
+int guessedLetterConv = 0;
+int guessedNumber = 0;
+
+
+
 Console.WriteLine("--------WELCOME TO BATTLESHIPS--------");
-Console.WriteLine();
 TurnPlayer();
 
 
 void TurnPlayer()
 {
-    Console.Clear();
-    DisplayGrid();
-    EnterCoordinates();
-    CheckHit();
-    // isPlayerGreen = !isPlayerGreen;
-    // TurnPlayer();
+    EnterCoordinatesInput();
+    EnterCoordinatesGuess();
+    Console.WriteLine("press key to check coordinates");
+    Console.ReadKey();
+    CheckForHit();
 }
 
-void EnterCoordinates()
+void EnterCoordinatesInput()
 {
-    Console.WriteLine($"{(isPlayerGreen ? "GREEN" : "PINK") }, it's your turn to shoot!");
-    Console.WriteLine($"Which coordinate of {(isPlayerGreen ? "PINK'" : "GREEN'") }s field do you wan to attack?");
+    Console.WriteLine();
+    DisplayGrid();
+    Console.WriteLine($"{(isPlayerGreenTurn ? "GREEN" : "PINK") }, where do you want to place your marker?");
     Console.WriteLine("LETTER coordinate");
     inputLetter = Console.ReadKey().KeyChar;
-    LettersToNumbers();
+    convertedLetter = ConvertToNumber(inputLetter);
+    if (convertedLetter == -1)
+    {
+        Console.WriteLine("The letter you chose is out of range.");
+        TurnPlayer();
+    }
     Console.WriteLine();
     
     Console.WriteLine("NUMBER coordinate");
     inputNumber = Convert.ToInt32(Console.ReadLine());
-    
-    if (isPlayerGreen)
+
+    if (isPlayerGreenTurn)
     {
-        gridPink[convertedLetter, inputNumber] = "X";
+        AssignChar();
+    }
+    
+    // isPlayerGreen = !isPlayerGreen;
+    // TurnPlayer();
+}
+
+void AssignChar()
+{
+    if (isPlayerGreenTurn)
+    {
+        gridGreen[inputNumber, convertedLetter] = "X";
     }
     else
     {
-        gridGreen[convertedLetter, inputNumber] = "X";
+        gridPink[inputNumber, convertedLetter] = "X";
     }
     Console.WriteLine("-------------------------------------");
     DisplayGrid();
-    Console.WriteLine("----------- updated field --------------");
-    Console.WriteLine("Press any key to continue");
+    Console.WriteLine("-------- updated field --------");
+    Console.WriteLine("   Press any key to end your turn   ");
     Console.ReadKey();
 }
-void CheckHit()
+
+void EnterCoordinatesGuess()
 {
-    if (!string.IsNullOrWhiteSpace(gridPink[convertedLetter,inputNumber]))
+    Console.WriteLine();
+    //players markers need to be hidden -- HOW??
+    DisplayGrid();
+    Console.WriteLine($"{(isPlayerGreenTurn ? "PINK" : "GREEN") }, it's your turn to shoot!");
+    Console.WriteLine($"Which coordinate of {(isPlayerGreenTurn ? "GREEN'" : "PINK'") }s field do you wan to attack?");
+    Console.WriteLine("LETTER coordinate");
+    guessedLetter = Console.ReadKey().KeyChar;
+    guessedLetterConv = ConvertToNumber(guessedLetter);
+    if (guessedLetterConv == -1)
     {
-        Console.WriteLine("YOU HIT");
+        Console.WriteLine("The letter you chose is out of range.");
+        TurnPlayer();
+    }
+    Console.WriteLine();
+    
+    Console.WriteLine("NUMBER coordinate");
+    guessedNumber = Convert.ToInt32(Console.ReadLine());
+}
+void CheckForHit()
+{
+    if (isPlayerGreenTurn)
+    {
+        if (gridGreen[inputNumber, convertedLetter] == gridGreen[guessedNumber, guessedLetterConv])
+        {
+            Console.WriteLine("YOU HIT!!");
+        }
+        else
+        {
+            Console.WriteLine("You missed!");
+        }
     }
     else
     {
-        Console.WriteLine("You  missed");
+        //check pink grid
     }
-    //is hit? change color of sqaure
+}
+void CheckHit()
+{
+    //compare coordinates player green with coordinates player pink
+    //compare input values to GUESSED values
+    
+    if (isPlayerGreenTurn)
+    {
+        for (int i = 0; i < gridPink.GetLength(0); i++)
+        {
+            for (int j = 0; j < gridPink.GetLength(1); j++)
+            {
+                if (!string.IsNullOrWhiteSpace(gridPink[inputNumber,convertedLetter]))
+                    {
+                        Console.WriteLine($"Letternr: {convertedLetter}, Numbernumber {inputNumber}");
+                        //change color pf sqaure
+                    }
+                    else
+                    {
+                        Console.WriteLine("You  missed");
+                    }
+            }
+        }
+    }
+    else
+    {
+        
+    }
 }
 
-void LettersToNumbers()
+
+
+int ConvertToNumber(char inputLetter)
 {
     if (char.IsUpper(inputLetter))
     {
@@ -109,46 +188,26 @@ void LettersToNumbers()
     
     if (letterRange.IndexOf(inputLetter) != -1)
     {
-         convertedLetter = letterRange.IndexOf(inputLetter) + 1; 
+        return letterRange.IndexOf(inputLetter) + 1; 
     }
-    else
-    {
-        Console.WriteLine("The letter you chose is out of range.");
-        TurnPlayer();
-    }
-
+    return -1;
 }
 
 ConsoleColor AssignColorSquares(int row, int column)
 {
-    if (isPlayerGreen)
+    if (isPlayerGreenTurn)
     {
-            return (row + column) % 2 == 0 ? ConsoleColor.Magenta : ConsoleColor.DarkMagenta;
+            return (row + column) % 2 == 0 ? ConsoleColor.Green : ConsoleColor.DarkGreen;
     }
     else
     {
-        return (row + column) % 2 == 0 ? ConsoleColor.Green : ConsoleColor.DarkGreen;
+        return (row + column) % 2 == 0 ? ConsoleColor.Magenta : ConsoleColor.DarkMagenta;
     }
 }
 
 void DisplayGrid()
 {
-    if (isPlayerGreen)
-    {
-        for(int i = 0; i < gridPink.GetLength(0); i++)
-        {
-            for (int j = 0; j < gridPink.GetLength(1); j++)
-            {
-                Console.BackgroundColor = AssignColorSquares(i, j);
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.Write(" " + gridPink[i,j] + " ");
-                Console.ResetColor();
-            }
-            Console.WriteLine();
-        }
-    }
-    else
+    if (isPlayerGreenTurn)
     {
         for(int i = 0; i < gridGreen.GetLength(0); i++)
         {
@@ -158,6 +217,21 @@ void DisplayGrid()
                 Console.ForegroundColor = ConsoleColor.Black;
 
                 Console.Write(" " + gridGreen[i,j] + " ");
+                Console.ResetColor();
+            }
+            Console.WriteLine();
+        }
+    }
+    else
+    {
+        for(int i = 0; i < gridPink.GetLength(0); i++)
+        {
+            for (int j = 0; j < gridPink.GetLength(1); j++)
+            {
+                Console.BackgroundColor = AssignColorSquares(i, j);
+                Console.ForegroundColor = ConsoleColor.Black;
+
+                Console.Write(" " + gridPink[i,j] + " ");
                 Console.ResetColor();
             }
             Console.WriteLine();
