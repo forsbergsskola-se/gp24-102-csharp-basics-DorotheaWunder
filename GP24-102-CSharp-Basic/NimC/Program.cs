@@ -9,7 +9,7 @@ string[] shipTypes =
     "5 SQUARES",
 };
 
-string letterRange = "abcdefhij";
+string letterRange = "abcdefghij";
 
 //have extra grid string just for color coding??
 string[,] gridGreen = 
@@ -55,8 +55,19 @@ int guessedNumber = 0;
 
 
 Console.WriteLine("--------WELCOME TO BATTLESHIPS--------");
-TurnPlayer();
+PlaceShipsPhase();
 
+//TurnPlayer();
+
+void PlaceShipsPhase()
+{
+    Console.WriteLine("Player X - place your ships on the grid");
+    //green player placed on green grid, pink player on pink
+    //or just start with the last entry of array and count down?
+    //shiptypes array -1 for each placed ship until its empty (=-1)
+    //if array empty - switch player
+    //refill ship array? HOW??
+}
 
 void TurnPlayer()
 {
@@ -65,6 +76,8 @@ void TurnPlayer()
     Console.WriteLine("press key to check coordinates");
     Console.ReadKey();
     CheckForHit();
+    Console.WriteLine("press key to end your turn");
+    Console.ReadKey();
     isPlayerGreenTurn = !isPlayerGreenTurn;
     TurnPlayer();
 }
@@ -97,11 +110,11 @@ void AssignChar()
 {
     if (isPlayerGreenTurn)
     {
-        gridGreen[inputNumber, convertedLetter] = "X";
+        gridGreen[inputNumber, convertedLetter] = "x";
     }
     else
     {
-        gridPink[inputNumber, convertedLetter] = "X";
+        gridPink[inputNumber, convertedLetter] = "x";
     }
     Console.WriteLine("-------------------------------------");
     DisplayGrid();
