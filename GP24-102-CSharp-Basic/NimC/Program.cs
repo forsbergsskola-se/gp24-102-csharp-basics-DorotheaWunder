@@ -57,7 +57,7 @@ void PlaceShipsPhase()
     Console.WriteLine($"Player {(isPlayerGreenTurn ? "GREEN" : "PINK") } - place your ships on the grid");
     
     ChooseStartingCoordinate:
-    Console.WriteLine($"Placing a ship of size --{shipTypes.First()}--.Enter the ship's starting coordinate");
+    Console.WriteLine($"Placing a ship of size -{shipTypes.First()}-.Enter the ship's starting coordinate");
     EnterCoordinatesInput();
     int row = inputNumber;
     int col = convertedLetter;
@@ -107,7 +107,7 @@ void PlaceShipsPhase()
     if (IsPlacementValid(row, col, shipSize, direction, currentGrid))
     {
         PlaceShip(row, col, shipSize, direction, currentGrid);
-        Console.WriteLine($"Battleship length --{shipTypes.First()}-- has been placed");
+        Console.WriteLine($"Battleship length -{shipTypes.First()}- has been placed");
     }
     else
     {
@@ -122,6 +122,17 @@ void PlaceShipsPhase()
         Console.WriteLine("Invalid placement! Try again.");
         goto ChooseStartingCoordinate;
     }
+    shipTypes = shipTypes.Skip(1).ToArray();
+    if (shipTypes.Any())
+    {
+        PlaceShipsPhase(); 
+    }
+    Console.WriteLine("This is the current placement of your armada.");
+    Console.WriteLine("Press any key to end your turn");
+    Console.ReadKey();
+
+    HideSymbols(currentGrid);
+    ShootingPhase();
 }
 
 bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid)
@@ -156,17 +167,17 @@ void PlaceShip(int row, int col, int size, char direction, string[,] grid)
 }
 
 
-void TurnPlayer()
+void ShootingPhase()
 {
-    EnterCoordinatesInput();
+    Console.WriteLine($"{(isPlayerGreenTurn ? "PINK" : "GREEN") }, it's your time to shoot!");
     EnterCoordinatesGuess();
-    Console.WriteLine("press key to check coordinates");
-    Console.ReadKey();
+    // Console.WriteLine("press key to check coordinates");
+    // Console.ReadKey();
     CheckForHit();
-    Console.WriteLine("press key to end your turn");
+    Console.WriteLine("press any key to end your turn");
     Console.ReadKey();
     isPlayerGreenTurn = !isPlayerGreenTurn;
-    TurnPlayer();
+    ShootingPhase();
 }
 
 void EnterCoordinatesInput()
@@ -180,7 +191,7 @@ void EnterCoordinatesInput()
     if (convertedLetter == -1)
     {
         Console.WriteLine("The letter you chose is out of range.");
-        TurnPlayer();
+        ShootingPhase();
     }
     Console.WriteLine();
     
@@ -211,6 +222,20 @@ void AssignChar()
     // Console.ReadKey();
 }
 
+void HideSymbols(string[,] grid)
+{
+    for(int i = 0; i < grid.GetLength(0); i++)
+    {
+        for (int j = 0; j < grid.GetLength(1); j++)
+        {
+            if (grid[i,j] == "*")
+            {
+                grid[i, j] = " ";
+            }
+        }
+    }
+}
+
 void EnterCoordinatesGuess()
 {
     Console.WriteLine();
@@ -224,7 +249,7 @@ void EnterCoordinatesGuess()
     if (guessedLetterConv == -1)
     {
         Console.WriteLine("The letter you chose is out of range.");
-        TurnPlayer();
+        ShootingPhase();
     }
     Console.WriteLine();
     
