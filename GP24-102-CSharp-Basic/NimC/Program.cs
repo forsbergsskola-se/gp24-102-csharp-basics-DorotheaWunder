@@ -1,13 +1,6 @@
-﻿bool isPlayerGreenTurn = true;
-//bool isHit;
-string[] shipTypes =
-{
-    "2 SQUARES",
-    "2 SQUARES",
-    "3 SQUARES",
-    "4 SQUARES",
-    "5 SQUARES",
-};
+﻿char menuNavigation = ' ';
+bool isPlayerGreenTurn = true;
+int[] shipTypes = { 5, 4, 3, 2, 2};
 
 string letterRange = "abcdefghij";
 
@@ -61,12 +54,61 @@ PlaceShipsPhase();
 
 void PlaceShipsPhase()
 {
-    Console.WriteLine("Player X - place your ships on the grid");
-    //green player placed on green grid, pink player on pink
-    //or just start with the last entry of array and count down?
-    //shiptypes array -1 for each placed ship until its empty (=-1)
-    //if array empty - switch player
-    //refill ship array? HOW??
+    Console.WriteLine($"Player {(isPlayerGreenTurn ? "GREEN" : "PINK") } - place your ships on the grid");
+    
+    ChooseStartingCoordinate:
+    Console.WriteLine($"Enter the ship's starting coordinate");
+    EnterCoordinatesInput();
+    Console.WriteLine($"This will be the ship's starting coordinate");
+    ChooseShipOrientation:
+    Console.WriteLine("-------------------------------------");
+    Console.WriteLine($"Press Key V to place the ship VERTICALLY");
+    Console.WriteLine($"Press Key H to place the ship HORIZONTALLY");
+    Console.WriteLine($"Press Key B to return BACK to entering the starting coordinates");
+    menuNavigation = Console.ReadKey().KeyChar;
+    
+    if (menuNavigation.Equals('V')|| menuNavigation.Equals('v'))
+    {
+        ShipOrientation();
+    }
+    else if (menuNavigation.Equals('H')|| menuNavigation.Equals('h'))
+    {
+        ShipOrientation();
+    }
+    else if (menuNavigation.Equals('B') || menuNavigation.Equals('b'))
+    {
+        if (isPlayerGreenTurn)
+        {
+            gridGreen[inputNumber, convertedLetter] = " ";
+        }
+        else
+        {
+            gridPink[inputNumber, convertedLetter] = " ";
+        }
+        DisplayGrid();
+        goto ChooseStartingCoordinate;
+    }
+    else
+    {
+        Console.WriteLine($"You didn't enter a valid key");
+        DisplayGrid();
+        goto ChooseShipOrientation;
+    }
+    //check if the space is empty; yes - place ship; no go orientation
+    //show updated grid
+    //place next ship in array (HOW?)
+    //end once array nr are counted down
+    //bool placement over??
+}
+
+void ShipOrientation()
+{
+    Console.WriteLine($"Ship orientation");
+}
+
+void ShipSizeCheck()
+{
+
 }
 
 void TurnPlayer()
@@ -118,9 +160,10 @@ void AssignChar()
     }
     Console.WriteLine("-------------------------------------");
     DisplayGrid();
-    Console.WriteLine("-------- updated field --------");
-    Console.WriteLine("   Press any key to end your turn   ");
-    Console.ReadKey();
+    Console.WriteLine("---------- updated field ----------");
+    ///---------------------- maybe end turn not needed yet
+    // Console.WriteLine("   Press any key to end your turn   ");
+    // Console.ReadKey();
 }
 
 void EnterCoordinatesGuess()
@@ -167,10 +210,12 @@ void CheckForHit()
         if (gridPink[inputNumber, convertedLetter] == gridPink[guessedNumber, guessedLetterConv])
         {
             Console.WriteLine("YOU HIT!!");
+            //turn foreground in string of this array black?
         }
         else
         {
             Console.WriteLine("You missed!");
+            //turn foreground in string of this array black?
         }
     }
 }
@@ -213,7 +258,6 @@ void DisplayGrid()
                 Console.ForegroundColor = ConsoleColor.Black;
 
                 //check values on green grid; if its not blank ->make it blank
-                //if grid
                 Console.Write(" " + gridGreen[i,j] + " ");
                 Console.ResetColor();
             }
