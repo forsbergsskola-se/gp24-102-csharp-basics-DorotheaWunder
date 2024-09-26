@@ -49,11 +49,15 @@ int guessedNumber = 0;
 
 Console.WriteLine("--------WELCOME TO BATTLESHIPS--------");
 PlaceShipsPhase();
+isPlayerGreenTurn = !isPlayerGreenTurn;
+PlaceShipsPhase();
 
-//TurnPlayer();
+
 
 void PlaceShipsPhase()
 {
+    int shipSize = shipTypes.First();
+    string[,] currentGrid = isPlayerGreenTurn ? gridGreen : gridPink;
     Console.WriteLine($"Player {(isPlayerGreenTurn ? "GREEN" : "PINK") } - place your ships on the grid");
     
     ChooseStartingCoordinate:
@@ -101,8 +105,8 @@ void PlaceShipsPhase()
         DisplayGrid();
         goto ChooseShipOrientation;
     }
-    int shipSize = shipTypes.First();
-    string[,] currentGrid = isPlayerGreenTurn ? gridGreen : gridPink;
+    // int shipSize = shipTypes.First();
+    // string[,] currentGrid = isPlayerGreenTurn ? gridGreen : gridPink;
     
     if (IsPlacementValid(row, col, shipSize, direction, currentGrid))
     {
@@ -127,12 +131,19 @@ void PlaceShipsPhase()
     {
         PlaceShipsPhase(); 
     }
-    Console.WriteLine("This is the current placement of your armada.");
+    Console.WriteLine("-------------------------------------");
+    Console.WriteLine("THIS IS THE CURRENT PLACEMENT OF YOUR ARMADA");
+    Console.WriteLine("-------------------------------------");
     Console.WriteLine("Press any key to end your turn");
     Console.ReadKey();
-
+    
+    
+    //if is isplayergreen true = to shooting phase??
     HideSymbols(currentGrid);
+    isPlayerGreenTurn = !isPlayerGreenTurn;
     ShootingPhase();
+    //PlaceShipsPhase();
+    ////
 }
 
 bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid)
@@ -166,7 +177,6 @@ void PlaceShip(int row, int col, int size, char direction, string[,] grid)
     //should have grid as argument
 }
 
-
 void ShootingPhase()
 {
     Console.WriteLine($"{(isPlayerGreenTurn ? "PINK" : "GREEN") }, it's your time to shoot!");
@@ -176,7 +186,7 @@ void ShootingPhase()
     CheckForHit();
     Console.WriteLine("press any key to end your turn");
     Console.ReadKey();
-    isPlayerGreenTurn = !isPlayerGreenTurn;
+    //isPlayerGreenTurn = !isPlayerGreenTurn;
     ShootingPhase();
 }
 
@@ -197,7 +207,8 @@ void EnterCoordinatesInput()
     
     Console.WriteLine("NUMBER coordinate");
     inputNumber = Convert.ToInt32(Console.ReadLine());
-
+    if (inputNumber == 0) { inputNumber = 10;}
+    
     if (isPlayerGreenTurn)
     {
         AssignChar();
@@ -217,9 +228,6 @@ void AssignChar()
     Console.WriteLine("-------------------------------------");
     DisplayGrid();
     Console.WriteLine("---------- updated field ----------");
-    ///---------------------- maybe end turn not needed yet
-    // Console.WriteLine("   Press any key to end your turn   ");
-    // Console.ReadKey();
 }
 
 void HideSymbols(string[,] grid)
@@ -239,7 +247,6 @@ void HideSymbols(string[,] grid)
 void EnterCoordinatesGuess()
 {
     Console.WriteLine();
-    //players markers need to be hidden -- HOW??
     DisplayGrid();
     Console.WriteLine($"{(isPlayerGreenTurn ? "PINK" : "GREEN") }, it's your turn to shoot!");
     Console.WriteLine($"Which coordinate of {(isPlayerGreenTurn ? "GREEN'" : "PINK'") }s field do you wan to attack?");
@@ -255,11 +262,11 @@ void EnterCoordinatesGuess()
     
     Console.WriteLine("NUMBER coordinate");
     guessedNumber = Convert.ToInt32(Console.ReadLine());
+    if (guessedNumber == 0) { guessedNumber = 10;}
 }
 
 void CheckForHit()
 {
-    //make players marker invisible
     if (isPlayerGreenTurn)
     {
         if (gridGreen[inputNumber, convertedLetter] == gridGreen[guessedNumber, guessedLetterConv])
@@ -280,12 +287,10 @@ void CheckForHit()
         if (gridPink[inputNumber, convertedLetter] == gridPink[guessedNumber, guessedLetterConv])
         {
             Console.WriteLine("YOU HIT!!");
-            //turn foreground in string of this array black?
         }
         else
         {
             Console.WriteLine("You missed!");
-            //turn foreground in string of this array black?
         }
     }
 }
