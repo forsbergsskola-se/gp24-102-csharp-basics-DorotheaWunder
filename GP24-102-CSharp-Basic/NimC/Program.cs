@@ -57,9 +57,12 @@ void PlaceShipsPhase()
     Console.WriteLine($"Player {(isPlayerGreenTurn ? "GREEN" : "PINK") } - place your ships on the grid");
     
     ChooseStartingCoordinate:
-    Console.WriteLine($"Enter the ship's starting coordinate");
+    Console.WriteLine($"Placing a ship of size --{shipTypes.First()}--.Enter the ship's starting coordinate");
     EnterCoordinatesInput();
+    int row = inputNumber;
+    int col = convertedLetter;
     Console.WriteLine($"This will be the ship's starting coordinate");
+    
     ChooseShipOrientation:
     Console.WriteLine("-------------------------------------");
     Console.WriteLine($"Press Key V to place the ship VERTICALLY");
@@ -67,13 +70,17 @@ void PlaceShipsPhase()
     Console.WriteLine($"Press Key B to return BACK to entering the starting coordinates");
     menuNavigation = Console.ReadKey().KeyChar;
     
+    char direction = ' ';
+    
     if (menuNavigation.Equals('V')|| menuNavigation.Equals('v'))
     {
-        ShipOrientation();
+        Console.WriteLine("-------------------------------------");
+        direction = 'V';
     }
     else if (menuNavigation.Equals('H')|| menuNavigation.Equals('h'))
     {
-        ShipOrientation();
+        Console.WriteLine("-------------------------------------");
+        direction = 'H';
     }
     else if (menuNavigation.Equals('B') || menuNavigation.Equals('b'))
     {
@@ -90,26 +97,64 @@ void PlaceShipsPhase()
     }
     else
     {
-        Console.WriteLine($"You didn't enter a valid key");
+        Console.WriteLine("You didn't enter a valid key");
         DisplayGrid();
         goto ChooseShipOrientation;
     }
-    //check if the space is empty; yes - place ship; no go orientation
-    //show updated grid
-    //place next ship in array (HOW?)
-    //end once array nr are counted down
-    //bool placement over??
+    int shipSize = shipTypes.First();
+    string[,] currentGrid = isPlayerGreenTurn ? gridGreen : gridPink;
+    
+    if (IsPlacementValid(row, col, shipSize, direction, currentGrid))
+    {
+        PlaceShip(row, col, shipSize, direction, currentGrid);
+        Console.WriteLine($"Battleship length --{shipTypes.First()}-- has been placed");
+    }
+    else
+    {
+        if (isPlayerGreenTurn)
+        {
+            gridGreen[inputNumber, convertedLetter] = " ";
+        }
+        else
+        {
+            gridPink[inputNumber, convertedLetter] = " ";
+        }
+        Console.WriteLine("Invalid placement! Try again.");
+        goto ChooseStartingCoordinate;
+    }
 }
 
-void ShipOrientation()
+bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid)
 {
-    Console.WriteLine($"Ship orientation");
+    if (direction == 'H' && col + size > grid.GetLength(1)) return false; 
+    
+    if (direction == 'V' && row + size > grid.GetLength(0)) return false;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (direction == 'H' && grid[row, col + i] != " ") return false;
+        if (direction == 'V' && grid[row + 1, col] != " ") return false;
+    }
+    return true;
 }
 
-void ShipSizeCheck()
+void PlaceShip(int row, int col, int size, char direction, string[,] grid)
 {
-
+    for (int i = 0; i < size; i++)
+    {
+        if (direction == 'H')
+        {
+            grid[row, col + i] = "*";  
+        }
+        else if (direction == 'V')
+        {
+            grid[row + i, col] = "*";  
+        }
+    }
+    DisplayGrid();
+    //should have grid as argument
 }
+
 
 void TurnPlayer()
 {
