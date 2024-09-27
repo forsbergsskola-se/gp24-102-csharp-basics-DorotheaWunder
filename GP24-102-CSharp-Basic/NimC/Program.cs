@@ -37,6 +37,7 @@ string[,] gridPink =
     { "0", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "0"},
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
 };
+
 //to mark the coordinate
 char inputLetter = ' ';
 int convertedLetter = 0;
