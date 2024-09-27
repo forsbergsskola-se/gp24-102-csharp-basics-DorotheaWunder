@@ -181,9 +181,9 @@ void PlaceShipsPhase()
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Press any key to end your turn");
             Console.ReadKey();
-            //----------------------------
-            HideSymbols(currentGrid);
-            //----------------------------
+            //----------------------------------------
+            //HideSymbols(currentGrid);
+            //----------------------------------------
             
             isPlayerGreenTurn = !isPlayerGreenTurn;
             if (!isPlayerGreenTurn)
@@ -237,12 +237,10 @@ void ShootingPhase()
 {
     Console.WriteLine($"{(isPlayerGreenTurn ? "PINK" : "GREEN") }, it's your time to shoot!");
     EnterCoordinatesGuess();
-    // Console.WriteLine("press key to check coordinates");
-    // Console.ReadKey();
     CheckForHit();
     Console.WriteLine("press any key to end your turn");
     Console.ReadKey();
-    //isPlayerGreenTurn = !isPlayerGreenTurn;
+    isPlayerGreenTurn = !isPlayerGreenTurn;
     ShootingPhase();
 }
 
@@ -344,10 +342,12 @@ void CheckForHit()
         if (gridPink[inputNumber, convertedLetter] == gridPink[guessedNumber, guessedLetterConv])
         {
             Console.WriteLine("YOU HIT!!");
+            DisplayGrid();
         }
         else
         {
             Console.WriteLine("You missed!");
+            DisplayGrid();
         }
     }
 }
