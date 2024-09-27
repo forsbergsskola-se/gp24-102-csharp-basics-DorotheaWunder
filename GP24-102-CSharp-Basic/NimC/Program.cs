@@ -1,10 +1,12 @@
 ﻿char menuNavigation = ' ';
+bool isGameRunning = true;
 bool isPlayerGreenTurn = true;
-int[] shipTypes = { 5, 4, 3, 2, 2};
+bool hasPlacedShips = false;
+int[] originalShipTypes = { 5, 4, 3, 2, 2};
+int[] usedShipTypes;
 
 string letterRange = "abcdefghij";
 
-//have extra grid string just for color coding??
 string[,] gridGreen = 
 {
     { " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "},
@@ -46,32 +48,68 @@ int guessedLetterConv = 0;
 int guessedNumber = 0;
 
 
-
 Console.WriteLine("--------WELCOME TO BATTLESHIPS--------");
-PlaceShipsPhase();
-isPlayerGreenTurn = !isPlayerGreenTurn;
-PlaceShipsPhase();
+Gameflow();
 
 
+void Gameflow()
+{
+    InitializeShipTypes();
+    
+    while (isGameRunning)
+    {
+        if (isPlayerGreenTurn)
+        {
+            PlaceShipsPhase(); 
+        }
+        else
+        {
+            PlaceShipsPhase();  
+        }
+    }
+    if (!originalShipTypes.Any()) 
+    {
+        while (true) 
+        {
+            if (isPlayerGreenTurn)
+            {
+                ShootingPhase(); 
+            }
+            else
+            {
+                ShootingPhase();
+            }
+            Console.WriteLine("check for end conditions");
+            // Check for end game conditions or breaks here
+            // If one player has won, set gameRunning to false
+        }
+    }
+}
 
 void PlaceShipsPhase()
 {
-    int shipSize = shipTypes.First();
+    if (!usedShipTypes.Any())
+    {
+        Console.WriteLine("All ships have been placed. Now it’s time to shoot!");
+        return; 
+    }
+    
+    int shipSize = usedShipTypes.First();
     string[,] currentGrid = isPlayerGreenTurn ? gridGreen : gridPink;
+    
     Console.WriteLine($"Player {(isPlayerGreenTurn ? "GREEN" : "PINK") } - place your ships on the grid");
     
     ChooseStartingCoordinate:
-    Console.WriteLine($"Placing a ship of size -{shipTypes.First()}-.Enter the ship's starting coordinate");
+    Console.WriteLine($"Placing a ship of size -{usedShipTypes.First()}-.Enter the ship's starting coordinate");
     EnterCoordinatesInput();
     int row = inputNumber;
     int col = convertedLetter;
 
-    if (currentGrid[inputNumber, convertedLetter] != "*")
+    //current grid used to have input and letters as arguments
+    if (currentGrid[row, col] != "*")
     {
-        //make sure things go to right player field
         AssignChar();
         Console.WriteLine("This will be the ship's starting coordinate");
-        
     }
     else
     {
@@ -114,13 +152,11 @@ void PlaceShipsPhase()
         DisplayGrid();
         goto ChooseShipOrientation;
     }
-    // int shipSize = shipTypes.First();
-    // string[,] currentGrid = isPlayerGreenTurn ? gridGreen : gridPink;
     
     if (IsPlacementValid(row, col, shipSize, direction, currentGrid))
     {
         PlaceShip(row, col, shipSize, direction, currentGrid);
-        Console.WriteLine($"Battleship length -{shipTypes.First()}- has been placed");
+        Console.WriteLine($"Battleship length -{usedShipTypes.First()}- has been placed");
     }
     else
     {
@@ -131,23 +167,24 @@ void PlaceShipsPhase()
         Console.WriteLine("Invalid placement! Try again.");
         goto ChooseStartingCoordinate;
     }
-    shipTypes = shipTypes.Skip(1).ToArray();
-    if (shipTypes.Any())
+    usedShipTypes = usedShipTypes.Skip(1).ToArray();
+    if (usedShipTypes.Any())
     {
         PlaceShipsPhase(); 
     }
-    Console.WriteLine("-------------------------------------");
-    Console.WriteLine("THIS IS THE CURRENT PLACEMENT OF YOUR ARMADA");
-    Console.WriteLine("-------------------------------------");
-    Console.WriteLine("Press any key to end your turn");
-    Console.ReadKey();
-    
-    
-    //if is isplayergreen true = to shooting phase??
-    HideSymbols(currentGrid);
-    ShootingPhase();
+    else
+    {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("THIS IS THE CURRENT PLACEMENT OF YOUR ARMADA");
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Press any key to end your turn");
+            Console.ReadKey();
+                isPlayerGreenTurn = !isPlayerGreenTurn;
+                Gameflow();
+    }
+    //HideSymbols(currentGrid);
+    //ShootingPhase();
     //PlaceShipsPhase();
-    ////
 }
 
 bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid)
@@ -205,7 +242,7 @@ void EnterCoordinatesInput()
     if (convertedLetter == -1)
     {
         Console.WriteLine("The letter you chose is out of range.");
-        ShootingPhase();
+        PlaceShipsPhase();
     }
     Console.WriteLine();
     
@@ -314,6 +351,15 @@ int ConvertToNumber(char inputLetter)
     return -1;
 }
 
+void InitializeShipTypes()
+{
+    usedShipTypes = (int[])originalShipTypes.Clone();
+}
+
+void RefillShipTypes()
+{
+    usedShipTypes = (int[])originalShipTypes.Clone();
+}
 ConsoleColor AssignColorSquares(int row, int column)
 {
     if (isPlayerGreenTurn)
