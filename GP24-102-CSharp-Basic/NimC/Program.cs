@@ -1,7 +1,7 @@
 ﻿char menuNavigation = ' ';
 bool isGameRunning = true;
 bool isPlayerGreenTurn = true;
-bool hasPlacedShips = false;
+bool bothPlacedShips = false;
 int[] originalShipTypes = { 5, 4, 3, 2, 2};
 int[] usedShipTypes;
 
@@ -67,8 +67,9 @@ void Gameflow()
             PlaceShipsPhase();  
         }
     }
-    if (!originalShipTypes.Any()) 
+    if (bothPlacedShips) 
     {
+        Console.WriteLine("GOES TO BATTLE PHASE");
         while (true) 
         {
             if (isPlayerGreenTurn)
@@ -88,9 +89,10 @@ void Gameflow()
 
 void PlaceShipsPhase()
 {
-    if (!usedShipTypes.Any())
+    if (bothPlacedShips)
     {
         Console.WriteLine("All ships have been placed. Now it’s time to shoot!");
+        //shooting phase
         return; 
     }
     
@@ -179,12 +181,25 @@ void PlaceShipsPhase()
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Press any key to end your turn");
             Console.ReadKey();
-                isPlayerGreenTurn = !isPlayerGreenTurn;
-                Gameflow();
+            //----------------------------
+            HideSymbols(currentGrid);
+            //----------------------------
+            
+            isPlayerGreenTurn = !isPlayerGreenTurn;
+            if (!isPlayerGreenTurn)
+            {
+                
+                RefillShipTypes();
+                PlaceShipsPhase();
+            }
+            else
+            {
+                Console.WriteLine("transition to shooting phase");
+                ShootingPhase(); 
+            }
     }
+    bothPlacedShips = !bothPlacedShips;
     //HideSymbols(currentGrid);
-    //ShootingPhase();
-    //PlaceShipsPhase();
 }
 
 bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid)
