@@ -65,13 +65,25 @@ void PlaceShipsPhase()
     EnterCoordinatesInput();
     int row = inputNumber;
     int col = convertedLetter;
-    Console.WriteLine($"This will be the ship's starting coordinate");
+
+    if (currentGrid[inputNumber, convertedLetter] != "*")
+    {
+        //make sure things go to right player field
+        AssignChar();
+        Console.WriteLine("This will be the ship's starting coordinate");
+        
+    }
+    else
+    {
+        Console.WriteLine("This coordinate is already taken. Pick an empty field.");
+        goto ChooseStartingCoordinate;
+    }
     
     ChooseShipOrientation:
     Console.WriteLine("-------------------------------------");
-    Console.WriteLine($"Press Key V to place the ship VERTICALLY");
-    Console.WriteLine($"Press Key H to place the ship HORIZONTALLY");
-    Console.WriteLine($"Press Key B to return BACK to entering the starting coordinates");
+    Console.WriteLine("Press Key V to place the ship VERTICALLY");
+    Console.WriteLine("Press Key H to place the ship HORIZONTALLY");
+    Console.WriteLine("Press Key B to return BACK to entering the starting coordinates");
     menuNavigation = Console.ReadKey().KeyChar;
     
     char direction = ' ';
@@ -89,13 +101,9 @@ void PlaceShipsPhase()
     else if (menuNavigation.Equals('B') || menuNavigation.Equals('b'))
     {
         //also make sure X doesnt turn into blank
-        if (isPlayerGreenTurn && gridGreen[inputNumber, convertedLetter] != "*")
+        if (currentGrid[inputNumber, convertedLetter] != "*")
         {
-            gridGreen[inputNumber, convertedLetter] = " ";
-        }
-        else if (!isPlayerGreenTurn && gridPink[inputNumber, convertedLetter] != "*")
-        {
-            gridPink[inputNumber, convertedLetter] = " ";
+            currentGrid[inputNumber, convertedLetter] = " ";
         }
         DisplayGrid();
         goto ChooseStartingCoordinate;
@@ -116,13 +124,9 @@ void PlaceShipsPhase()
     }
     else
     {
-        if (isPlayerGreenTurn && gridGreen[inputNumber, convertedLetter] != "*")
+        if (currentGrid[inputNumber, convertedLetter] != "*")
         {
-            gridGreen[inputNumber, convertedLetter] = " ";
-        }
-        else if (!isPlayerGreenTurn && gridPink[inputNumber, convertedLetter] != "*")
-        {
-            gridPink[inputNumber, convertedLetter] = " ";
+            currentGrid[inputNumber, convertedLetter] = " ";
         }
         Console.WriteLine("Invalid placement! Try again.");
         goto ChooseStartingCoordinate;
@@ -154,8 +158,8 @@ bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid
 
     for (int i = 0; i < size; i++)
     {
-        if (direction == 'H' && grid[row, col + 1] != " ") return false;
-        if (direction == 'V' && grid[row + 1, col] != " ") return false;
+        if (direction == 'H' && grid[row, (col + i) + 1] != " ") return false;
+        if (direction == 'V' && grid[(row + i) + 1, col] != " ") return false;
     }
     return true;
 }
@@ -209,10 +213,11 @@ void EnterCoordinatesInput()
     inputNumber = Convert.ToInt32(Console.ReadLine());
     if (inputNumber == 0) { inputNumber = 10;}
     
-    if (isPlayerGreenTurn)
-    {
-        AssignChar();
-    }
+    
+    // if (isPlayerGreenTurn)
+    // {
+    //     AssignChar();
+    // }
 }
 
 void AssignChar()
