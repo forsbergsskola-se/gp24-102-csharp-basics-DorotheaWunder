@@ -88,11 +88,12 @@ void PlaceShipsPhase()
     }
     else if (menuNavigation.Equals('B') || menuNavigation.Equals('b'))
     {
-        if (isPlayerGreenTurn)
+        //also make sure X doesnt turn into blank
+        if (isPlayerGreenTurn && gridGreen[inputNumber, convertedLetter] != "*")
         {
             gridGreen[inputNumber, convertedLetter] = " ";
         }
-        else
+        else if (!isPlayerGreenTurn && gridPink[inputNumber, convertedLetter] != "*")
         {
             gridPink[inputNumber, convertedLetter] = " ";
         }
@@ -115,11 +116,11 @@ void PlaceShipsPhase()
     }
     else
     {
-        if (isPlayerGreenTurn)
+        if (isPlayerGreenTurn && gridGreen[inputNumber, convertedLetter] != "*")
         {
             gridGreen[inputNumber, convertedLetter] = " ";
         }
-        else
+        else if (!isPlayerGreenTurn && gridPink[inputNumber, convertedLetter] != "*")
         {
             gridPink[inputNumber, convertedLetter] = " ";
         }
@@ -140,7 +141,6 @@ void PlaceShipsPhase()
     
     //if is isplayergreen true = to shooting phase??
     HideSymbols(currentGrid);
-    isPlayerGreenTurn = !isPlayerGreenTurn;
     ShootingPhase();
     //PlaceShipsPhase();
     ////
@@ -154,7 +154,7 @@ bool IsPlacementValid(int row, int col, int size, char direction, string[,] grid
 
     for (int i = 0; i < size; i++)
     {
-        if (direction == 'H' && grid[row, col + i] != " ") return false;
+        if (direction == 'H' && grid[row, col + 1] != " ") return false;
         if (direction == 'V' && grid[row + 1, col] != " ") return false;
     }
     return true;
